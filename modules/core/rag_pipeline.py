@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-from langchain.schema.output_parser import StrOutputParser
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain.chains import ConversationalRetrievalChain
 from modules.ingestion.pdf_loader import load_all_pdfs_from_folder
