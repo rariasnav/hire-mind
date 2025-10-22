@@ -1,0 +1,14 @@
+langchain
+openai
+langchain-community
+langchain-openai
+langchain-core
+chromadb
+tiktoken
+pydantic
+python-dotenv
+streamlit
+requests
+PyPDF2
+faiss-cpu
+PyGithub

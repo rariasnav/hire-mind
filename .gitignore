@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.tmp
+*.log
+
+# Virtual environment
+venv/
+.env/
+.env
+.venv/
+env/
+ENV/
+
+# Streamlit cache
+.streamlit/
+.streamlit/secrets.toml
+
+# Build & distribution
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# IDEs and editors
+.vscode/
+
+
+
+# OS files
+.DS_Store
+Thumbs.db
+
+
+# Optional model/index files
+*.faiss
+*_index
+*_index.faiss
+*_index.pkl
