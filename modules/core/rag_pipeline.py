@@ -13,7 +13,10 @@ from modules.core.memory import get_memory
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 
-embeddings = OpenAIEmbeddings(model="text-embedding-3-small", openai_api_key=api_key)
+if not api_key:
+    raise ValueError("OPENAI_API_KEY not found in environment.")
+
+embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
 # ---------- CORE FUNCTIONS ----------
 
@@ -27,7 +30,7 @@ def initialize_vectorstore():
         return None
 
 
-def build_from_pdfs(folder_path="data"):
+def build_from_pdfs(folder_path: str = "data") -> Tuple[FAISS, List[str]]:
     """
     Loads PDFs, builds vectorstore, saves it, and returns it.
     """
@@ -37,7 +40,7 @@ def build_from_pdfs(folder_path="data"):
     return vectorstore, [f.name for f in Path(folder_path).glob("*.pdf")]
 
 
-def build_from_github(repos: list[str]):
+def build_from_github(repos: List[str]) -> Tuple[FAISS, List[str]]:
     """
     Loads content from GitHub, builds vectorstore, saves it, and returns it.
     """
@@ -48,7 +51,7 @@ def build_from_github(repos: list[str]):
     return vectorstore, repos
 
 
-def query_rag(vectorstore, query: str, memory=None):
+def query_rag(vectorstore, query: str, memory=None) -> dict:
     """
     Executes a RAG query using the vectorstore, conversation memory, and default LangChain prompt.
     """

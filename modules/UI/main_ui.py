@@ -3,8 +3,12 @@ from modules.UI.pdf_ui import pdf_loader_ui
 from modules.UI.github_ui import github_loader_ui
 from modules.UI.query_ui import query_interface_ui
 from modules.core.rag_pipeline import initialize_vectorstore
+from modules.core.memory import get_memory
 
-def main_ui():
+def render_main_ui():
+    """
+    UI component to render the main interface of HireMind.
+    """
     st.set_page_config(page_title="HireMind - Rafael's AI Agent", page_icon="🤖")
     st.title("🤖 HireMind - Rafael's Professional AI Agent")
     
@@ -33,7 +37,6 @@ def main_ui():
             st.info("No vector store found. Please load data first.")
             
     if "memory" not in st.session_state:
-        from modules.core.memory import get_memory
         st.session_state.memory = get_memory(buffer_type="window", k=5)
             
     # --- Render sections ---

@@ -1,23 +1,27 @@
 import os
 from github import Github
 from dotenv import load_dotenv
+from typing import List
 
 load_dotenv()
 
 def load_github_repos(
-    repos: list[str],
-    file_extensions: list[str] = [".py", ".js", ".ts", ".tsx", ".md", ".html", ".css", ".json"]
-) -> list[str]:
+    repos: List[str],
+    file_extensions: List[str] = [".py", ".js", ".ts", ".tsx", ".md", ".html", ".css", ".json"]
+) -> List[str]:
     """
-    Load the content of relevant files from multiple Github repositories.
+    Load the content of relevant files from multiple Github repositories. 
     Returns a list of strings, each representing the content of a file.
     """
     token = os.getenv("GITHUB_TOKEN")
     if not token:
-        raise ValueError(" GITHUB_TOKEN not found in .env file")
+        raise ValueError("GITHUB_TOKEN not found in .env file")
     
     g = Github(token)
     all_texts = []
+    
+    if not repos:
+        raise ValueError("No repositories provided for loading.")
     
     for repo_name in repos:
         try:
@@ -33,9 +37,9 @@ def load_github_repos(
                         decoded = file_content.decoded_content.decode("utf-8", errors="ignore")
                         all_texts.append(decoded)
                     except Exception as e:
-                        print(f"⚠️ Couldn't read {file_content.path}: {e}")
-            print(f"Total files loaded from{repo_name}: {len(all_texts)}")
+                        st.warning(f"⚠️ Couldn't read {file_content.path}: {e}") 
+            print(f"Total files loaded from {repo_name}: {len(all_texts)}")
         except Exception as e:
-            print(f"❌ Error loading {repo_name}: {e}")
+            st.error(f"❌ Error loading {repo_name}: {e}")
             
-    return all_texts
+    return all_texts                                                                                                                                                                                                                                                                                                                                                   return all_texts
